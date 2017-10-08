@@ -5,7 +5,6 @@ var T = new Twit(config)
 
 var params = { q: 'rainbow', count: 2 }
 
-
 // set up user stream
 var stream = T.stream('user')
 
@@ -13,14 +12,15 @@ var stream = T.stream('user')
 stream.on('follow', followed)
 
 function followed(eventMsg) {
+  console.log('follow event');
   var name = eventMsg.source.name
   var screenName = eventMsg.source.screen_name
   tweetIt('.@ ' + screenName + ' hi ur cool')
+  console.log('followed by ' + name + ' (' + screenName + ')')
 }
 
-
 tweetIt(generateTweet())
-setInterval(tweetIt, 1000 * 20, generateTweet())
+setInterval(tweetIt, 1000 * 60 * 1, generateTweet())
 
 function generateTweet() {
   var r = Math.floor(Math.random() * 100)
@@ -42,8 +42,6 @@ function tweetIt(text) {
     }
   }
 }
-
-
 
 // testing logging
 // console.log(generateTweet())
